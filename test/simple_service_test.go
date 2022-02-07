@@ -7,6 +7,7 @@ import (
 )
 
 func TestSimpleService(t *testing.T) {
-	simpleService := simple.InitializeService()
-	fmt.Println(simpleService.SimpleRepository)
+	simpleService, err := simple.InitializeService()
+	fmt.Println(err)
+	fmt.Println(simpleService)
 }
