@@ -3,11 +3,12 @@
 
 package simple
 
+import "github.com/google/wire"
+
 func InitializeService() *SimpleService {
 	//menggunakan build diwire,lalu mencantumkan function yang akan digunakan di provider
 	wire.Build(
-		NewSimpleRepository,
-		NewSimpleService)
+		NewSimpleRepository, NewSimpleService)
 
 	//Data di body akan diganti oleh Google Wire
 	return nil

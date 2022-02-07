@@ -7,12 +7,12 @@ func NewSimpleRepository() *SimpleRepository {
 	return &SimpleRepository{}
 }
 
-type StructService struct {
+type SimpleService struct {
 	*SimpleRepository
 }
 
-func NewStructService(repository *SimpleRepository) *StructService {
-	return &StructService{
+func NewSimpleService(repository *SimpleRepository) *SimpleService {
+	return &SimpleService{
 		SimpleRepository: repository,
 	}
 }
