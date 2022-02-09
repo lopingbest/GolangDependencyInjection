@@ -5,7 +5,7 @@ package simple
 
 import "github.com/google/wire"
 
-func InitializeService() (*SimpleService, error) {
+func InitializeService(isError bool) (*SimpleService, error) {
 	//menggunakan build diwire,lalu mencantumkan function yang akan digunakan di provider
 	wire.Build(
 		NewSimpleRepository, NewSimpleService)
