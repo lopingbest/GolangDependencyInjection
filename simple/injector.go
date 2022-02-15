@@ -13,3 +13,12 @@ func InitializeService(isError bool) (*SimpleService, error) {
 	//Data di body akan diganti oleh Google Wire
 	return nil, nil
 }
+
+func InitializedDatabaseRepository() *DatabaseRepository {
+	wire.Build(
+		NewDatabaseMongoDB,
+		NewDatabasePostgreSQL,
+		NewDatabaseRepository,
+	)
+	return nil
+}
