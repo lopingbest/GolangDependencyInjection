@@ -3,7 +3,11 @@
 
 package simple
 
-import "github.com/google/wire"
+import (
+	"github.com/google/wire"
+	"io"
+	"os"
+)
 
 func InitializeService(isError bool) (*SimpleService, error) {
 	//menggunakan build diwire,lalu mencantumkan function yang akan digunakan di provider
@@ -58,5 +62,18 @@ func InitializedHelloService() *HelloService {
 //Bagian mana yang mau di inject
 func InitializedFoobar() *FooBar {
 	wire.Build(NewFoo, NewBar, wire.Struct(new(FooBar), "Foo", "Bar"))
+	return nil
+}
+
+var fooValue = &Foo{}
+var barValue = &Bar{}
+
+func InitializedFooBarUsingValue() *FooBar {
+	wire.Build(wire.Value(fooValue), wire.Value(barValue), wire.Struct(new(FooBar), "*"))
+	return nil
+}
+
+func InitializedReader() io.Reader {
+	wire.Build(wire.InterfaceValue(new(io.Reader), os.Stdin))
 	return nil
 }
