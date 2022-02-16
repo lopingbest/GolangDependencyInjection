@@ -44,6 +44,17 @@ func InitializedHelloService() *HelloService {
 	return helloService
 }
 
+//Bagian mana yang mau di inject
+func InitializedFoobar() *FooBar {
+	foo := NewFoo()
+	bar := NewBar()
+	fooBar := &FooBar{
+		Foo: foo,
+		Bar: bar,
+	}
+	return fooBar
+}
+
 // injector.go:
 
 var fooset = wire.NewSet(
