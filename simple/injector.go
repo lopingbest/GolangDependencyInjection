@@ -38,3 +38,19 @@ func InitializedFooBarService() *FooBarService {
 	wire.Build(fooset, barset, NewFooBarService)
 	return nil
 }
+
+/*func InitializedHelloService() *HelloService {
+	wire.Build(NewHelloService, NewSayHelloImpl)
+	return nil
+}*/
+
+//Binding Interface
+var helloset = wire.NewSet(
+	NewSayHelloImpl,
+	wire.Bind(new(SayHello), new(*SayHelloImpl)), //yang butuh SayHello akan di balikan pointer
+)
+
+func InitializedHelloService() *HelloService {
+	wire.Build(helloset, NewHelloService)
+	return nil
+}
