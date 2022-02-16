@@ -54,3 +54,9 @@ func InitializedHelloService() *HelloService {
 	wire.Build(helloset, NewHelloService)
 	return nil
 }
+
+//Bagian mana yang mau di inject
+func InitializedFoobar() *FooBar {
+	wire.Build(NewFoo, NewBar, wire.Struct(new(FooBar), "Foo", "Bar"))
+	return nil
+}
