@@ -14,8 +14,8 @@ type CategoryControllerImplementation struct {
 	CategoryService service.CategoryService
 }
 
-//Function yang mengekspos CategoryController dan mengimplementasi struct categoryService
-func NewCategoryController(categoryService service.CategoryService) CategoryController {
+//Function yang mengekspos NewCategoryController dan mengimplementasi struct categoryService
+func NewCategoryController(categoryService service.CategoryService) *CategoryControllerImplementation {
 	return &CategoryControllerImplementation{
 		CategoryService: categoryService,
 	}
