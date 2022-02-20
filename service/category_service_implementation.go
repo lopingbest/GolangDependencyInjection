@@ -11,20 +11,20 @@ import (
 	"lopingbest/GolangRESTFullAPI/repository"
 )
 
-type CategoryServiceImplemenation struct {
+type CategoryServiceImplementation struct {
 	CategoryRepository repository.CategoryRepository
 	DB                 *sql.DB
 	validate           *validator.Validate
 }
 
-func NewCategoryService(categoryRepository repository.CategoryRepository, DB *sql.DB, validate *validator.Validate) CategoryService {
-	return &CategoryServiceImplemenation{
+func NewCategoryService(categoryRepository repository.CategoryRepository, DB *sql.DB, validate *validator.Validate) *CategoryServiceImplementation {
+	return &CategoryServiceImplementation{
 		CategoryRepository: categoryRepository,
 		DB:                 DB,
 		validate:           validate}
 }
 
-func (service CategoryServiceImplemenation) Create(ctx context.Context, request web.CategoryCreateRequest) web.CategoryResponse {
+func (service CategoryServiceImplementation) Create(ctx context.Context, request web.CategoryCreateRequest) web.CategoryResponse {
 	//validasi sebelum mulai
 	err := service.validate.Struct(request)
 	helper.PanicIfError(err)
@@ -44,7 +44,7 @@ func (service CategoryServiceImplemenation) Create(ctx context.Context, request 
 	return helper.ToCategoryResponse(category)
 }
 
-func (service CategoryServiceImplemenation) Update(ctx context.Context, request web.CategoryUpdateRequest) web.CategoryResponse {
+func (service CategoryServiceImplementation) Update(ctx context.Context, request web.CategoryUpdateRequest) web.CategoryResponse {
 	err := service.validate.Struct(request)
 	helper.PanicIfError(err)
 
@@ -66,7 +66,7 @@ func (service CategoryServiceImplemenation) Update(ctx context.Context, request 
 	return helper.ToCategoryResponse(category)
 }
 
-func (service CategoryServiceImplemenation) Delete(ctx context.Context, categoryId int) {
+func (service CategoryServiceImplementation) Delete(ctx context.Context, categoryId int) {
 	tx, err := service.DB.Begin()
 	if err != nil {
 		panic(exception.NewNotFoundError(err.Error()))
@@ -82,7 +82,7 @@ func (service CategoryServiceImplemenation) Delete(ctx context.Context, category
 	service.CategoryRepository.Delete(ctx, tx, category)
 }
 
-func (service *CategoryServiceImplemenation) FindById(ctx context.Context, categoryId int) web.CategoryResponse {
+func (service *CategoryServiceImplementation) FindById(ctx context.Context, categoryId int) web.CategoryResponse {
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
@@ -95,7 +95,7 @@ func (service *CategoryServiceImplemenation) FindById(ctx context.Context, categ
 	return helper.ToCategoryResponse(category)
 }
 
-func (service CategoryServiceImplemenation) FindAll(ctx context.Context) []web.CategoryResponse {
+func (service CategoryServiceImplementation) FindAll(ctx context.Context) []web.CategoryResponse {
 	tx, err := service.DB.Begin()
 	helper.PanicIfError(err)
 	defer helper.CommitOrRollback(tx)
